@@ -13,6 +13,7 @@ public class SplashActivity extends SherlockActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        /**Delete TabBar ActionBar...*/
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 

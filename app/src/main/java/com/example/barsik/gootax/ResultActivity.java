@@ -36,15 +36,18 @@ public class ResultActivity extends SherlockFragmentActivity
     double toLng;
     getResult result;
 
+    /**Last Activity*/
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.result_layout);
+        /**Get coordinates*/
         fromLat = getIntent().getExtras().getDouble("from_lat");
         fromLng = getIntent().getExtras().getDouble("from_lng");
         toLat = getIntent().getExtras().getDouble("to_lat");
         toLng = getIntent().getExtras().getDouble("to_lng");
+        /**Settings map*/
         supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.resultMap);
         resultMap = supportMapFragment.getMap();
         resultMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
@@ -52,16 +55,20 @@ public class ResultActivity extends SherlockFragmentActivity
         resultMap.getUiSettings().setZoomControlsEnabled(true);
         resultMap.setMyLocationEnabled(true);
 
+        /**From Marker*/
         MarkerOptions markerFrom = new MarkerOptions()
                 .position(new LatLng(fromLat, fromLng));
         resultMap.addMarker(markerFrom);
 
+        /**To Marker*/
         MarkerOptions markerTo = new MarkerOptions()
                 .position(new LatLng(toLat, toLng));
         resultMap.addMarker(markerTo);
         result = new getResult();
         result.execute();
     }
+
+    /**Second tab Activity*/
     public class getResult extends AsyncTask<Void, Void, Void>
     {
         JSONObject json;
@@ -72,6 +79,7 @@ public class ResultActivity extends SherlockFragmentActivity
             super.onPreExecute();
         }
 
+        /**POST*/
         @Override
         protected Void doInBackground(Void... params)
         {
@@ -111,6 +119,7 @@ public class ResultActivity extends SherlockFragmentActivity
             return null;
         }
 
+        /**Paint*/
         @Override
         protected void onPostExecute(Void aVoid)
         {
